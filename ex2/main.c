@@ -84,6 +84,7 @@ int fillSudokuBacktracking(char matrix[10][10]){
             if(matrix[i][j] == '.'){
                 int ok = 0;
                 for(k; k <= 9; k++)
+
                     if(checkLine(matrix, i, k + '0') && checkColumn(matrix, j, k + '0') && checkSquare(matrix, i - i % 3, j - j % 3, k + '0')) {
                         matrix[i][j] = k + '0';
                         ok=1;
@@ -110,12 +111,14 @@ int fillSudokuBacktracking_recursiv(char matrix[10][10], int i, int j){
         if(checkLine(matrix, i, k + '0') && checkColumn(matrix, j, k + '0') && checkSquare(matrix, i - i % 3, j - j % 3, k + '0')) {
 
             matrix[i][j] = k + '0';
+            //printMatrix(matrix);
+            //printf("\n\n");
             if(i==8 && j==8)
                 return 1;
-            if(i==8)
-                ok = fillSudokuBacktracking_recursiv(matrix, 0, j+1);
+            if(j==8)
+                ok = fillSudokuBacktracking_recursiv(matrix, i+1, 0);
             else
-                ok = fillSudokuBacktracking_recursiv(matrix, i+1, j);
+                ok = fillSudokuBacktracking_recursiv(matrix, i, j+1);
             if(ok==1)
                 return 1;
             else{
